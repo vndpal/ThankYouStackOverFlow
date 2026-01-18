@@ -1,0 +1,273 @@
+body {
+    background: linear-gradient(135deg, #fff5f0 0%, #f8f9fa 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+}
+
+h1 {
+    color: #f48024;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+p {
+    color: #555;
+}
+
+.card-header {
+    background: linear-gradient(90deg, #f48024, #0077cc) !important;
+    border-bottom: none;
+}
+
+.card {
+    box-shadow: 0 8px 16px rgba(244, 128, 36, 0.2);
+    border: 2px solid #f48024;
+    border-radius: 15px;
+    background: white;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+#profileImage {
+    border: 3px solid #f48024;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    color: #0077cc;
+    font-weight: bold;
+}
+
+#gratitudeText {
+    font-style: italic;
+    color: #f48024;
+    font-size: 1.1em;
+    margin: 1rem 0;
+}
+
+.btn-info {
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.card-footer {
+    background: rgba(244, 128, 36, 0.1);
+    border-top: 1px solid #f48024;
+    font-style: italic;
+}
+
+.top-item {
+    font-size: 0.85em;
+    line-height: 1.3;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+#profileImage {
+    border: 3px solid #f48024;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    color: #0077cc;
+    font-weight: bold;
+}
+
+#gratitudeText {
+    font-style: italic;
+    color: #f48024;
+    font-size: 1.1em;
+    margin: 1rem 0;
+}
+
+.btn-primary {
+    background-color: #f48024;
+    border-color: #f48024;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e06b1a;
+    border-color: #e06b1a;
+}
+
+.form-control:focus {
+    border-color: #f48024;
+    box-shadow: 0 0 0 0.2rem rgba(244, 128, 36, 0.25);
+}
+
+h6 {
+    color: #0077cc;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Loading Spinner */
+.spinner-border {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-bottom;
+    border: .25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Custom Modal Styles */
+.custom-modal {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.custom-modal-header {
+    background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+    color: white;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.custom-modal-header .modal-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-modal-header .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+.custom-modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+.custom-modal-body {
+    padding: 2rem;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #28a745;
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.custom-modal-body h4 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.instruction-text {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.instruction-list {
+    text-align: left;
+    display: inline-block;
+    color: #666;
+    font-size: 1rem;
+    line-height: 2;
+    padding-left: 1.5rem;
+}
+
+.instruction-list li {
+    margin-bottom: 0.5rem;
+}
+
+.instruction-list kbd {
+    background-color: #f48024;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 1.5rem;
+    background: white;
+}
+
+.custom-modal-footer .btn {
+    background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+}
+
+.custom-modal-footer .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(29, 161, 242, 0.4);
+    background: linear-gradient(135deg, #0d8bd9 0%, #1da1f2 100%);
+}
+
+.custom-modal-footer .btn:active {
+    transform: translateY(0);
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+}
+
+/* Download fallback modal styles */
+.download-icon {
+    font-size: 4rem;
+    color: #007bff;
+    animation: scaleIn 0.5s ease-out;
+}

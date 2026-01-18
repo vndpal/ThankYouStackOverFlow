@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You Stack Overflow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">
+      <i class="fas fa-heart text-danger"></i> Thank You Stack Overflow
+      <i class="fas fa-heart text-danger"></i>
+    </h1>
+    <p class="text-center mb-4">
+      Show your gratitude to Stack Overflow by showcasing your contributions
+      and how it has helped you grow as a software engineer.
+    </p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form id="userForm">
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="noAccountCheckbox">
+            <label class="form-check-label" for="noAccountCheckbox">I don't have a Stack Overflow account</label>
+          </div>
+          <div class="mb-3" id="usernameGroup">
+            <label for="username" class="form-label">Enter your Stack Overflow username:</label>
+            <input type="text" class="form-control" id="username" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100" id="submitBtn">
+            Generate Gratitude Card
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="cardContainer" class="mt-5" style="display: none">
+      <div class="card mx-auto" style="max-width: 700px">
+        <div class="card-header bg-primary text-white text-center">
+          <i class="fab fa-stack-overflow"></i> Stack Overflow Gratitude Card
+        </div>
+        <div class="card-body text-center">
+          <img id="profileImage" src="" alt="Profile Image" class="rounded-circle mb-3"
+            style="width: 120px; height: 120px" />
+          <h5 class="card-title" id="displayName"></h5>
+          <p class="card-text" id="gratitudeText"></p>
+          <div class="row">
+            <div class="col-6">
+              <h6><i class="fas fa-star text-warning"></i> Reputation</h6>
+              <p id="reputation"></p>
+            </div>
+            <div class="col-6">
+              <h6><i class="fas fa-medal text-secondary"></i> Badges</h6>
+              <p id="badges"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <h6>
+                <i class="fas fa-question-circle text-info"></i> Questions
+                Asked
+              </h6>
+              <p id="questions"></p>
+            </div>
+            <div class="col-6">
+              <h6><i class="fas fa-reply text-success"></i> Answers Given</h6>
+              <p id="answers"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <h6>
+                <i class="fas fa-calendar-alt text-primary"></i> Member Since
+              </h6>
+              <p id="memberSince"></p>
+            </div>
+            <div class="col-6">
+              <h6>
+                <i class="fas fa-thumbs-up text-danger"></i> Most Upvoted
+                Question
+              </h6>
+              <p class="top-item" id="topQuestion"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <h6>
+                <i class="fas fa-thumbs-up text-success"></i> Most Upvoted
+                Answer
+              </h6>
+              <p class="top-item" id="topAnswer"></p>
+            </div>
+            <div class="col-6">
+              <h6>
+                <i class="fas fa-user-friends text-warning"></i> Top
+                Contributor
+              </h6>
+              <p id="topContributor"></p>
+            </div>
+          </div>
+          <button id="shareTwitter" class="btn btn-info mt-3">
+            <i class="fab fa-twitter"></i> Share on Twitter
+          </button>
+        </div>
+        <div class="card-footer text-muted text-center">
+          Remember the days of 'I have a question'? Stack Overflow has been
+          there through it all. 🕰️
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beautiful Custom Modal -->
+  <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal">
+        <div class="modal-header custom-modal-header">
+          <h5 class="modal-title" id="shareModalLabel">
+            <i class="fab fa-twitter"></i> Ready to Share!
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
+        </div>
+        <div class="modal-body custom-modal-body">
+          <div class="text-center mb-4">
+            <div class="success-icon mb-3">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h4 id="modalTitle">Image is Ready!</h4>
+            <div id="modalInstructions" class="mt-3">
+              <p class="instruction-text">
+                <strong>In the Twitter window:</strong>
+              </p>
+              <ol class="instruction-list">
+                <li>Click in the tweet box</li>
+                <li>Press <kbd>Ctrl+V</kbd> (Windows) or <kbd>Cmd+V</kbd> (Mac)</li>
+                <li>The image will attach automatically!</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer custom-modal-footer">
+          <button type="button" class="btn btn-primary btn-lg w-100" id="goToTwitterBtn">
+            <i class="fab fa-twitter"></i> Go to Twitter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
