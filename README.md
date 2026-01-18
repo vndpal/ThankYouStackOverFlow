@@ -24,7 +24,7 @@ A beautiful web application that generates personalized gratitude cards showcasi
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/ThankYouStackOverFlow.git
+git clone https://github.com/vndpal/ThankYouStackOverFlow.git
 cd ThankYouStackOverFlow
 ```
 

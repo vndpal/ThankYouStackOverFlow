@@ -21,12 +21,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ThankYouStackOverFlow.git"
+    "url": "https://github.com/vndpal/ThankYouStackOverFlow.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/ThankYouStackOverFlow/issues"
+    "url": "https://github.com/vndpal/ThankYouStackOverFlow/issues"
   },
-  "homepage": "https://github.com/yourusername/ThankYouStackOverFlow#readme",
+  "homepage": "https://github.com/vndpal/ThankYouStackOverFlow#readme",
   "devDependencies": {
     "vite": "^6.0.0"
   }
