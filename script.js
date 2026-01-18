@@ -210,7 +210,7 @@ function setupShareButton() {
         toggleLoading(shareBtn, false, originalContent);
         
         // Store Twitter URL for modal button
-        const tweetText = "#ThankYouStackOverflow";
+        const tweetText = "#ThankYouStackOverflow Generate yours at https://thankyoustackoverflow.vndpal.com/";
         const twitterUrl = getTwitterUrl(tweetText);
         
         // Show beautiful modal instead of alert
