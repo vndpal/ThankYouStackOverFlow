@@ -327,10 +327,11 @@ function showShareModal(title, subtitle, instructions, twitterUrl, isDownload = 
   const iconElement = document.querySelector('.success-icon i');
   if (iconElement) {
     if (isDownload) {
-      iconElement.className = 'fas fa-download download-icon';
+      iconElement.className = 'fas fa-download';
+      iconElement.style.color = 'white';
     } else {
       iconElement.className = 'fas fa-check-circle';
-      iconElement.style.color = '#28a745';
+      iconElement.style.color = 'white';
     }
   }
   

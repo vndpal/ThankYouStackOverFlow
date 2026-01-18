@@ -5,6 +5,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thank You Stack Overflow</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🙏%3C/text%3E%3C/svg%3E" />
+  
+  <!-- Meta tags for embedding -->
+  <meta name="description" content="Generate personalized gratitude cards showcasing your Stack Overflow contributions. Share your appreciation for the Stack Overflow community!" />
+  <meta name="keywords" content="stackoverflow, gratitude, thank you, developer, software engineer" />
+  <meta name="author" content="Thank You Stack Overflow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thankyoustackoverflow.vndpal.com/" />
+  <meta property="og:title" content="Thank You Stack Overflow - Gratitude Card Generator" />
+  <meta property="og:description" content="Generate personalized gratitude cards showcasing your Stack Overflow contributions. Share your appreciation for the Stack Overflow community!" />
+  <meta property="og:image" content="https://thankyoustackoverflow.vndpal.com/og-image.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://thankyoustackoverflow.vndpal.com/" />
+  <meta name="twitter:title" content="Thank You Stack Overflow - Gratitude Card Generator" />
+  <meta name="twitter:description" content="Generate personalized gratitude cards showcasing your Stack Overflow contributions. Share your appreciation for the Stack Overflow community!" />
+  <meta name="twitter:image" content="https://thankyoustackoverflow.vndpal.com/og-image.png" />
+  
+  <!-- Stylesheets -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -13,6 +37,11 @@
 
 <body>
   <div class="container mt-5">
+    <div class="text-end mb-3">
+      <a href="https://github.com/yourusername/ThankYouStackOverFlow" target="_blank" rel="noopener noreferrer" class="github-link" title="View on GitHub">
+        <i class="fab fa-github fa-2x"></i>
+      </a>
+    </div>
     <h1 class="text-center mb-4">
       <i class="fas fa-heart text-danger"></i> Thank You Stack Overflow
       <i class="fas fa-heart text-danger"></i>
@@ -90,7 +119,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal">
         <div class="modal-header custom-modal-header">
-          <h5 class="modal-title">
+          <h5 class="modal-title d-flex align-items-center gap-3">
             <div class="success-icon">
               <i class="fas fa-check-circle"></i>
             </div>
