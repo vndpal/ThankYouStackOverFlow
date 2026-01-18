@@ -60,7 +60,9 @@ function openTwitterWithFallback(url) {
       
       // Fallback to web after delay
       setTimeout(() => {
-        document.body.removeChild(iframe);
+        if (document.body.contains(iframe)) {
+          document.body.removeChild(iframe);
+        }
         window.open(`https://x.com/intent/tweet?text=${tweetText}`, '_blank');
       }, 800);
     } else {
@@ -73,37 +75,45 @@ function openTwitterWithFallback(url) {
 }
 
 // Toggle fields based on checkbox
-noAccountCheckbox.addEventListener("change", function () {
-  if (this.checked) {
-    usernameGroup.style.display = "none";
-    usernameInput.required = false;
-    submitBtn.textContent = "Share on Twitter";
-    submitBtn.classList.remove("btn-primary");
-    submitBtn.classList.add("btn-info");
-    submitBtn.innerHTML = '<i class="fab fa-twitter"></i> Share on Twitter';
-  } else {
-    usernameGroup.style.display = "block";
-    usernameInput.required = true;
-    submitBtn.textContent = "Generate Gratitude Card";
-    submitBtn.classList.add("btn-primary");
-    submitBtn.classList.remove("btn-info");
-  }
-});
+if (noAccountCheckbox) {
+  noAccountCheckbox.addEventListener("change", function () {
+    if (this.checked) {
+      if (usernameGroup) usernameGroup.style.display = "none";
+      if (usernameInput) usernameInput.required = false;
+      if (submitBtn) {
+        submitBtn.textContent = "Share on Twitter";
+        submitBtn.classList.remove("btn-primary");
+        submitBtn.classList.add("btn-info");
+        submitBtn.innerHTML = '<i class="fab fa-twitter"></i> Share on Twitter';
+      }
+    } else {
+      if (usernameGroup) usernameGroup.style.display = "block";
+      if (usernameInput) usernameInput.required = true;
+      if (submitBtn) {
+        submitBtn.textContent = "Generate Gratitude Card";
+        submitBtn.classList.add("btn-primary");
+        submitBtn.classList.remove("btn-info");
+      }
+    }
+  });
+}
 
-document
-  .getElementById("userForm")
-  .addEventListener("submit", function (event) {
+const userForm = document.getElementById("userForm");
+if (userForm) {
+  userForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    if (noAccountCheckbox.checked) {
+    if (noAccountCheckbox && noAccountCheckbox.checked) {
       // Direct Twitter Share
       const tweetText = "#ThankYouStackOverflow";
       const twitterUrl = getTwitterUrl(tweetText);
       openTwitterWithFallback(twitterUrl);
     } else {
+      if (!usernameInput) return;
       const username = usernameInput.value.trim();
       if (!username) return;
 
+      if (!submitBtn) return;
       const originalText = submitBtn.innerHTML;
       toggleLoading(submitBtn, true, "Generating...");
 
@@ -112,6 +122,7 @@ document
       });
     }
   });
+}
 
 function toggleLoading(button, isLoading, text) {
   if (isLoading) {
@@ -126,7 +137,10 @@ function toggleLoading(button, isLoading, text) {
 
 function setupShareButton() {
   // Add share functionality
-  document.getElementById("shareTwitter").onclick = async function () {
+  const shareTwitterBtn = document.getElementById("shareTwitter");
+  if (!shareTwitterBtn) return; // Exit if button doesn't exist
+  
+  shareTwitterBtn.onclick = async function () {
     const shareBtn = document.getElementById("shareTwitter");
     const originalContent = shareBtn.innerHTML;
 
@@ -299,16 +313,25 @@ function showShareModal(title, subtitle, instructions, twitterUrl, isDownload = 
   currentTwitterUrl = twitterUrl;
   
   // Update modal content
-  document.getElementById('modalTitle').textContent = title;
+  const modalTitleEl = document.getElementById('modalTitle');
+  if (modalTitleEl) modalTitleEl.textContent = title;
+  
   const instructionsDiv = document.getElementById('modalInstructions');
+  if (!instructionsDiv) {
+    // Fallback: use alert if modal doesn't exist
+    alert(`${title}\n\n${subtitle}\n\n${instructions.join('\n')}`);
+    return;
+  }
   
   // Update icon
   const iconElement = document.querySelector('.success-icon i');
-  if (isDownload) {
-    iconElement.className = 'fas fa-download download-icon';
-  } else {
-    iconElement.className = 'fas fa-check-circle';
-    iconElement.style.color = '#28a745';
+  if (iconElement) {
+    if (isDownload) {
+      iconElement.className = 'fas fa-download download-icon';
+    } else {
+      iconElement.className = 'fas fa-check-circle';
+      iconElement.style.color = '#28a745';
+    }
   }
   
   // Update instructions
@@ -322,8 +345,11 @@ function showShareModal(title, subtitle, instructions, twitterUrl, isDownload = 
   `;
   
   // Show modal
-  const modal = new bootstrap.Modal(document.getElementById('shareModal'));
-  modal.show();
+  const modalElement = document.getElementById('shareModal');
+  if (modalElement && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
 }
 
 // Set up modal event handlers
@@ -412,7 +438,7 @@ async function fetchUserData(username) {
         `https://api.stackexchange.com/2.3/users/${userId}/questions?order=desc&sort=votes&site=stackoverflow&pagesize=1`
       );
       const topQuestionData = await topQuestionResponse.json();
-      const topQuestion = topQuestionData.items[0];
+      const topQuestion = topQuestionData.items && topQuestionData.items.length > 0 ? topQuestionData.items[0] : null;
 
       // Fetch top answer
       const topAnswerResponse = await fetch(
@@ -420,57 +446,83 @@ async function fetchUserData(username) {
       );
       const topAnswerData = await topAnswerResponse.json();
       // Find the top answer not by the user
-      const topAnswer =
-        topAnswerData.items.find((answer) => answer.owner.user_id !== userId) ||
-        topAnswerData.items[0];
+      const topAnswer = topAnswerData.items && topAnswerData.items.length > 0
+        ? (topAnswerData.items.find((answer) => answer.owner.user_id !== userId) || topAnswerData.items[0])
+        : null;
 
       // Fetch the question for the top answer
-      const questionForAnswerResponse = await fetch(
-        `https://api.stackexchange.com/2.3/questions/${topAnswer.question_id}?site=stackoverflow`
-      );
-      const questionForAnswerData = await questionForAnswerResponse.json();
-      const questionForAnswer = questionForAnswerData.items[0];
+      let questionForAnswer = null;
+      if (topAnswer && topAnswer.question_id) {
+        try {
+          const questionForAnswerResponse = await fetch(
+            `https://api.stackexchange.com/2.3/questions/${topAnswer.question_id}?site=stackoverflow`
+          );
+          const questionForAnswerData = await questionForAnswerResponse.json();
+          questionForAnswer = questionForAnswerData.items && questionForAnswerData.items.length > 0 
+            ? questionForAnswerData.items[0] 
+            : null;
+        } catch (err) {
+          console.warn("Error fetching question for answer:", err);
+        }
+      }
 
       // Update the card
-      document.getElementById("profileImage").src = user.profile_image;
-      document.getElementById("displayName").textContent = user.display_name;
-      document.getElementById("reputation").textContent =
-        user.reputation.toLocaleString();
-      document.getElementById(
-        "badges"
-      ).textContent = `${user.badge_counts.gold} Gold, ${user.badge_counts.silver} Silver, ${user.badge_counts.bronze} Bronze`;
-      document.getElementById("questions").textContent = questionCount;
-      document.getElementById("answers").textContent = answerCount;
+      const profileImageEl = document.getElementById("profileImage");
+      if (profileImageEl) profileImageEl.src = user.profile_image;
+      
+      const displayNameEl = document.getElementById("displayName");
+      if (displayNameEl) displayNameEl.textContent = user.display_name;
+      
+      const reputationEl = document.getElementById("reputation");
+      if (reputationEl) reputationEl.textContent = user.reputation.toLocaleString();
+      
+      const badgesEl = document.getElementById("badges");
+      if (badgesEl) {
+        badgesEl.textContent = `${user.badge_counts.gold} Gold, ${user.badge_counts.silver} Silver, ${user.badge_counts.bronze} Bronze`;
+      }
+      
+      const questionsEl = document.getElementById("questions");
+      if (questionsEl) questionsEl.textContent = questionCount;
+      
+      const answersEl = document.getElementById("answers");
+      if (answersEl) answersEl.textContent = answerCount;
 
       // Member since
       const memberSince = new Date(
         user.creation_date * 1000
       ).toLocaleDateString();
-      document.getElementById("memberSince").textContent = memberSince;
+      const memberSinceEl = document.getElementById("memberSince");
+      if (memberSinceEl) memberSinceEl.textContent = memberSince;
 
       // Top question
-      document.getElementById(
-        "topQuestion"
-      ).textContent = `${topQuestion.title} (${topQuestion.score} upvotes)`;
+      const topQuestionEl = document.getElementById("topQuestion");
+      if (topQuestionEl && topQuestion) {
+        topQuestionEl.textContent = `${topQuestion.title} (${topQuestion.score} upvotes)`;
+      }
 
       // Top answer
-      document.getElementById(
-        "topAnswer"
-      ).textContent = `${questionForAnswer.title} (${topAnswer.score} upvotes)`;
+      const topAnswerEl = document.getElementById("topAnswer");
+      if (topAnswerEl && questionForAnswer && topAnswer) {
+        topAnswerEl.textContent = `${questionForAnswer.title} (${topAnswer.score} upvotes)`;
+      }
 
       // Top contributor (owner of top answer)
-      document.getElementById("topContributor").textContent =
-        topAnswer.owner.display_name;
+      const topContributorEl = document.getElementById("topContributor");
+      if (topContributorEl && topAnswer && topAnswer.owner) {
+        topContributorEl.textContent = topAnswer.owner.display_name;
+      }
 
       // Gratitude text
       const gratitudeText = `Thanks to Stack Overflow, I've contributed ${answerCount} answers, asked ${questionCount} questions, earned ${user.reputation.toLocaleString()} reputation, and collected ${user.badge_counts.gold +
         user.badge_counts.silver +
         user.badge_counts.bronze
         } badges! 🙏🚀`;
-      document.getElementById("gratitudeText").textContent = gratitudeText;
+      const gratitudeTextEl = document.getElementById("gratitudeText");
+      if (gratitudeTextEl) gratitudeTextEl.textContent = gratitudeText;
 
       // Show the card
-      document.getElementById("cardContainer").style.display = "block";
+      const cardContainerEl = document.getElementById("cardContainer");
+      if (cardContainerEl) cardContainerEl.style.display = "block";
 
       setupShareButton();
     } catch (error) {

@@ -75,12 +75,53 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <small>Share your gratitude with the community</small>
+          <button id="shareTwitter" class="btn btn-info btn-lg mt-3">
+            <i class="fab fa-twitter"></i> Share on Twitter
+          </button>
+          <br>
+          <small class="mt-2 d-block">Share your gratitude with the community</small>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Share Modal -->
+  <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal">
+        <div class="modal-header custom-modal-header">
+          <h5 class="modal-title">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <span id="modalTitle">Image is Ready!</span>
+          </h5>
+          <button type="button" class="btn-close" id="closeModalBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body custom-modal-body text-center">
+          <div id="modalInstructions">
+            <p class="instruction-text">
+              <strong>In the Twitter window:</strong>
+            </p>
+            <ol class="instruction-list">
+              <li>Click in the tweet box</li>
+              <li>Press Ctrl+V (Windows) or Cmd+V (Mac)</li>
+              <li>The image will attach automatically!</li>
+            </ol>
+          </div>
+        </div>
+        <div class="modal-footer custom-modal-footer justify-content-center">
+          <button type="button" class="btn btn-primary" id="goToTwitterBtn">
+            <i class="fab fa-twitter"></i> Go to Twitter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
   <!-- ENTRY SCRIPT: make this a module so Vite bundles it -->
   <script type="module" src="/script.js"></script>
 </body>
