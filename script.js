@@ -1,3 +1,7 @@
+import { inject } from "@vercel/analytics";
+
+inject();
+
 const noAccountCheckbox = document.getElementById("noAccountCheckbox");
 const usernameGroup = document.getElementById("usernameGroup");
 const usernameInput = document.getElementById("username");

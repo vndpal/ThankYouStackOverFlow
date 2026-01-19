@@ -29,5 +29,8 @@
   "homepage": "https://github.com/vndpal/ThankYouStackOverFlow#readme",
   "devDependencies": {
     "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.6.1"
   }
 }
